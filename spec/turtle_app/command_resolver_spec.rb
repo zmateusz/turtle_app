@@ -1,5 +1,3 @@
-require_relative '../../lib/turtle_app/command_resolver'
-
 RSpec.describe TurtleApp::CommandResolver do
   subject { described_class.new }
 
@@ -8,9 +6,17 @@ RSpec.describe TurtleApp::CommandResolver do
   describe '#call' do
     context 'when PLACE command is passed' do
       it 'calls Table#place method' do
-        expect(table).to receive(:place).with(4, 4, 'SOUTH')
+        expect(table).to receive(:place).with(4, 4, 'SOUTH').once
 
         subject.call(table: table, command: 'PLACE 4,4,SOUTH')
+      end
+    end
+
+    context 'when REPORT command is passed' do
+      it 'calls Table#report method' do
+        expect(table).to receive(:report).once.and_return({})
+
+        subject.call(table: table, command: 'REPORT')
       end
     end
 

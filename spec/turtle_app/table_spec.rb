@@ -1,5 +1,3 @@
-require_relative '../../lib/turtle_app/table'
-
 RSpec.describe TurtleApp::Table do
   subject { described_class.new }
 
@@ -47,6 +45,14 @@ RSpec.describe TurtleApp::Table do
           ]
         )
       end
+    end
+  end
+
+  describe '#report' do
+    it 'returns turtle coordinates and direction' do
+      subject.place(4, 4, 'SOUTH')
+
+      expect(subject.report).to eq({x: 4, y: 4, direction: 'SOUTH'})
     end
   end
 end
