@@ -8,8 +8,8 @@ module TurtleApp
       command_args = command_parts[1]
 
       if command_name == 'PLACE'
-        parsed_args = command_args.split(',').map(&:to_i)
-        table.place(parsed_args[0], parsed_args[1])
+        parsed_args = command_args.split(',')
+        table.place(parsed_args[0].to_i, parsed_args[1].to_i, parsed_args[2])
       else
         raise UnknownCommandError, "Unknown command: #{command}"
       end

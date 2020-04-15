@@ -9,11 +9,11 @@ module TurtleApp
       @turtle = nil
     end
 
-    def place(x, y)
+    def place(x, y, direction)
       clear_table
 
       fields[x][y] = 'T'
-      @turtle = OpenStruct.new(x: x, y: y)
+      @turtle = OpenStruct.new(x: x, y: y, direction: direction)
     end
 
     private

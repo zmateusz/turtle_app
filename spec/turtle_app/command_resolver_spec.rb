@@ -8,9 +8,9 @@ RSpec.describe TurtleApp::CommandResolver do
   describe '#call' do
     context 'when PLACE command is passed' do
       it 'calls Table#place method' do
-        expect(table).to receive(:place).with(4, 4)
+        expect(table).to receive(:place).with(4, 4, 'SOUTH')
 
-        subject.call(table: table, command: 'PLACE 4,4')
+        subject.call(table: table, command: 'PLACE 4,4,SOUTH')
       end
     end
 

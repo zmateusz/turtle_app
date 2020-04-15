@@ -19,7 +19,7 @@ RSpec.describe TurtleApp::Table do
 
   describe '#place' do
     it 'places turtle on given field' do
-      subject.place(4, 4)
+      subject.place(4, 4, 'SOUTH')
 
       expect(subject.fields).to eq(
         [
@@ -34,8 +34,8 @@ RSpec.describe TurtleApp::Table do
 
     context 'when turtle is placed two times' do
       it 'is placed on the latest given field' do
-        subject.place(4, 4)
-        subject.place(0, 0)
+        subject.place(4, 4, 'SOUTH')
+        subject.place(0, 0, 'SOUTH')
 
         expect(subject.fields).to eq(
           [
