@@ -28,12 +28,14 @@ RSpec.describe TurtleApp::Table do
           [nil, nil, nil, nil, 'T']
         ]
       )
+
+      expect(subject.turtle).to have_attributes(x: 4, y: 4, direction: 'SOUTH')
     end
 
     context 'when turtle is placed two times' do
       it 'is placed on the latest given field' do
         subject.place(4, 4, 'SOUTH')
-        subject.place(0, 0, 'SOUTH')
+        subject.place(0, 0, 'NORTH')
 
         expect(subject.fields).to eq(
           [
@@ -44,7 +46,29 @@ RSpec.describe TurtleApp::Table do
             [nil, nil, nil, nil, nil]
           ]
         )
+
+        expect(subject.turtle).to have_attributes(x: 0, y: 0, direction: 'NORTH')
       end
+    end
+  end
+
+  describe '#rotate_left' do
+    it 'rotates turtle in left direction' do
+      subject.place(4, 4, 'SOUTH')
+
+      subject.rotate_left
+
+      expect(subject.turtle).to have_attributes(direction: 'EAST')
+    end
+  end
+
+  describe '#rotate_right' do
+    it 'rotates turtle in right direction' do
+      subject.place(4, 4, 'WEST')
+
+      subject.rotate_right
+
+      expect(subject.turtle).to have_attributes(direction: 'NORTH')
     end
   end
 
