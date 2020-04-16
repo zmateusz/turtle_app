@@ -19,17 +19,16 @@ RSpec.describe TurtleApp::Table do
     it 'places turtle on given field' do
       subject.place(4, 4, 'SOUTH')
 
-      expect(subject.fields).to eq(
+      expect(subject.turtle).to have_attributes(x: 4, y: 4, direction: 'SOUTH')
+      expect(subject.fields.reverse).to eq(
         [
+          [nil, nil, nil, nil, 'T'],
           [nil, nil, nil, nil, nil],
           [nil, nil, nil, nil, nil],
           [nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, nil],
-          [nil, nil, nil, nil, 'T']
+          [nil, nil, nil, nil, nil]
         ]
       )
-
-      expect(subject.turtle).to have_attributes(x: 4, y: 4, direction: 'SOUTH')
     end
 
     context 'when turtle is placed two times' do
@@ -37,17 +36,138 @@ RSpec.describe TurtleApp::Table do
         subject.place(4, 4, 'SOUTH')
         subject.place(0, 4, 'NORTH')
 
-        expect(subject.fields).to eq(
+        expect(subject.turtle).to have_attributes(x: 0, y: 4, direction: 'NORTH')
+        expect(subject.fields.reverse).to eq(
+          [
+            ['T', nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil]
+          ]
+        )
+      end
+    end
+  end
+
+  describe '#move' do
+    before { subject.place(2, 3, direction) }
+
+    context 'when turtle direction is SOUTH' do
+      let(:direction) { 'SOUTH' }
+
+      it 'moves turtle one field forward' do
+        subject.move
+
+        expect(subject.turtle).to have_attributes(x: 2, y: 2)
+        expect(subject.fields.reverse).to eq(
           [
             [nil, nil, nil, nil, nil],
             [nil, nil, nil, nil, nil],
+            [nil, nil, 'T', nil, nil],
             [nil, nil, nil, nil, nil],
-            [nil, nil, nil, nil, nil],
-            ['T', nil, nil, nil, nil]
+            [nil, nil, nil, nil, nil]
           ]
         )
+      end
+    end
 
-        expect(subject.turtle).to have_attributes(x: 0, y: 4, direction: 'NORTH')
+    context 'when turtle direction is WEST' do
+      let(:direction) { 'WEST' }
+
+      it 'moves turtle one field forward' do
+        subject.move
+
+        expect(subject.turtle).to have_attributes(x: 1, y: 3)
+        expect(subject.fields.reverse).to eq(
+          [
+            [nil, nil, nil, nil, nil],
+            [nil, 'T', nil, nil, nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil]
+          ]
+        )
+      end
+    end
+
+    context 'when turtle direction is NORTH' do
+      let(:direction) { 'NORTH' }
+
+      it 'moves turtle one field forward' do
+        subject.move
+
+        expect(subject.turtle).to have_attributes(x: 2, y: 4)
+        expect(subject.fields.reverse).to eq(
+          [
+            [nil, nil, 'T', nil, nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil]
+          ]
+        )
+      end
+    end
+
+    context 'when turtle direction is EAST' do
+      let(:direction) { 'EAST' }
+
+      it 'moves turtle one field forward' do
+        subject.move
+
+        expect(subject.turtle).to have_attributes(x: 3, y: 3)
+        expect(subject.fields.reverse).to eq(
+          [
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, 'T', nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil],
+            [nil, nil, nil, nil, nil]
+          ]
+        )
+      end
+    end
+
+    context 'when turtle is placed on table corner' do
+      before { subject.place(4, 4, direction) }
+
+      context 'when direction is NORTH' do
+        let(:direction) { 'NORTH' }
+
+        it 'stays on previous place' do
+          subject.move
+
+          expect(subject.turtle).to have_attributes(x: 4, y: 4)
+          expect(subject.fields.reverse).to eq(
+            [
+              [nil, nil, nil, nil, 'T'],
+              [nil, nil, nil, nil, nil],
+              [nil, nil, nil, nil, nil],
+              [nil, nil, nil, nil, nil],
+              [nil, nil, nil, nil, nil]
+            ]
+          )
+        end
+      end
+
+      context 'when direction is EAST' do
+        let(:direction) { 'EAST' }
+
+        it 'stays on previous place' do
+          subject.move
+
+          expect(subject.turtle).to have_attributes(x: 4, y: 4)
+          expect(subject.fields.reverse).to eq(
+            [
+              [nil, nil, nil, nil, 'T'],
+              [nil, nil, nil, nil, nil],
+              [nil, nil, nil, nil, nil],
+              [nil, nil, nil, nil, nil],
+              [nil, nil, nil, nil, nil]
+            ]
+          )
+        end
       end
     end
   end

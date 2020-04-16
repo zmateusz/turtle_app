@@ -20,6 +20,25 @@ module TurtleApp
       turtle.direction = direction
     end
 
+    def move
+      case turtle.direction
+      when 'SOUTH' then
+        new_y = turtle.y - 1
+        place(turtle.x, new_y, turtle.direction) and return if new_y >= 0
+      when 'WEST' then
+        new_x = turtle.x - 1
+        place(new_x, turtle.y, turtle.direction) and return if new_x >= 0
+      when 'NORTH' then
+        new_y = turtle.y + 1
+        place(turtle.x, new_y, turtle.direction) and return if new_y < fields.size
+      when 'EAST' then
+        new_x = turtle.x + 1
+        place(new_x, turtle.y, turtle.direction) and return if new_x < fields.size
+      end
+
+      'Table edge reached. Can not move forward'
+    end
+
     def rotate_left
       turtle.direction = next_direction(DIRECTIONS.reverse, turtle.direction)
     end
