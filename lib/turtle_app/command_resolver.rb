@@ -13,6 +13,8 @@ module TurtleApp
       when 'PLACE' then
         parsed_args = command_args.split(',')
         table.place(parsed_args[0].to_i, parsed_args[1].to_i, parsed_args[2])
+      when 'MOVE' then
+        result = table.move
       when 'LEFT' then
         table.rotate_left
       when 'RIGHT' then

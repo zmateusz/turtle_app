@@ -12,6 +12,14 @@ RSpec.describe TurtleApp::CommandResolver do
       end
     end
 
+    context 'when MOVE command is passed' do
+      it 'calls Table#move method' do
+        expect(table).to receive(:move).once
+
+        subject.call(table: table, command: 'MOVE')
+      end
+    end
+
     context 'when LEFT command is passed' do
       it 'calls Table#rotate_left method' do
         expect(table).to receive(:rotate_left).once
