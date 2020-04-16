@@ -11,7 +11,7 @@ module TurtleApp
       @turtle = OpenStruct.new(x: nil, y: nil, direction: nil)
     end
 
-    def place(x, y, direction)
+    def place_turtle(x, y, direction)
       clear_table
 
       fields[y][x] = 'T'
@@ -20,30 +20,30 @@ module TurtleApp
       turtle.direction = direction
     end
 
-    def move
+    def move_turtle
       case turtle.direction
       when 'SOUTH' then
         new_y = turtle.y - 1
-        place(turtle.x, new_y, turtle.direction) and return if new_y >= 0
+        place_turtle(turtle.x, new_y, turtle.direction) and return if new_y >= 0
       when 'WEST' then
         new_x = turtle.x - 1
-        place(new_x, turtle.y, turtle.direction) and return if new_x >= 0
+        place_turtle(new_x, turtle.y, turtle.direction) and return if new_x >= 0
       when 'NORTH' then
         new_y = turtle.y + 1
-        place(turtle.x, new_y, turtle.direction) and return if new_y < fields.size
+        place_turtle(turtle.x, new_y, turtle.direction) and return if new_y < fields.size
       when 'EAST' then
         new_x = turtle.x + 1
-        place(new_x, turtle.y, turtle.direction) and return if new_x < fields.size
+        place_turtle(new_x, turtle.y, turtle.direction) and return if new_x < fields.size
       end
 
       'Table edge reached. Can not move forward'
     end
 
-    def rotate_left
+    def rotate_turtle_left
       turtle.direction = next_direction(DIRECTIONS.reverse, turtle.direction)
     end
 
-    def rotate_right
+    def rotate_turtle_right
       turtle.direction = next_direction(DIRECTIONS, turtle.direction)
     end
 

@@ -5,32 +5,32 @@ RSpec.describe TurtleApp::CommandResolver do
 
   describe '#call' do
     context 'when PLACE command is passed' do
-      it 'calls Table#place method' do
-        expect(table).to receive(:place).with(4, 4, 'SOUTH').once
+      it 'calls Table#place_turtle method' do
+        expect(table).to receive(:place_turtle).with(4, 4, 'SOUTH').once
 
         subject.call(table: table, command: 'PLACE 4,4,SOUTH')
       end
     end
 
     context 'when MOVE command is passed' do
-      it 'calls Table#move method' do
-        expect(table).to receive(:move).once
+      it 'calls Table#move_turtle method' do
+        expect(table).to receive(:move_turtle).once
 
         subject.call(table: table, command: 'MOVE')
       end
     end
 
     context 'when LEFT command is passed' do
-      it 'calls Table#rotate_left method' do
-        expect(table).to receive(:rotate_left).once
+      it 'calls Table#rotate_turtle_left method' do
+        expect(table).to receive(:rotate_turtle_left).once
 
         subject.call(table: table, command: 'LEFT')
       end
     end
 
     context 'when RIGHT command is passed' do
-      it 'calls Table#rotate_right method' do
-        expect(table).to receive(:rotate_right).once
+      it 'calls Table#rotate_turtle_right method' do
+        expect(table).to receive(:rotate_turtle_right).once
 
         subject.call(table: table, command: 'RIGHT')
       end

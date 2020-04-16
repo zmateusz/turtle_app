@@ -12,13 +12,13 @@ module TurtleApp
       case command_name
       when 'PLACE' then
         parsed_args = command_args.split(',')
-        table.place(parsed_args[0].to_i, parsed_args[1].to_i, parsed_args[2])
+        table.place_turtle(parsed_args[0].to_i, parsed_args[1].to_i, parsed_args[2])
       when 'MOVE' then
-        result = table.move
+        result = table.move_turtle
       when 'LEFT' then
-        table.rotate_left
+        table.rotate_turtle_left
       when 'RIGHT' then
-        table.rotate_right
+        table.rotate_turtle_right
       when 'REPORT' then
         report = table.report
         result = "#{report[:x]},#{report[:y]},#{report[:direction]}"
