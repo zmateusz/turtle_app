@@ -47,6 +47,20 @@ RSpec.describe TurtleApp::Table do
           ]
         )
       end
+
+      context 'when trying to place outside the table' do
+        it 'raises IncorrectPlace' do
+          expect { subject.place_turtle(5, 4, 'NORTH') }
+            .to raise_error(TurtleApp::IncorrectPlace, 'Incorrect place')
+        end
+      end
+
+      context 'when trying to place with incorrect direction' do
+        it 'raises IncorrectDirection' do
+          expect { subject.place_turtle(4, 4, 'BAR') }
+            .to raise_error(TurtleApp::IncorrectDirection, 'Incorrect direction')
+        end
+      end
     end
   end
 
@@ -197,6 +211,13 @@ RSpec.describe TurtleApp::Table do
       subject.place_turtle(4, 4, 'SOUTH')
 
       expect(subject.report).to eq({x: 4, y: 4, direction: 'SOUTH'})
+    end
+
+    context 'when turtle is not placed' do
+      it 'raises TurtleNotPlaced' do
+        expect { subject.report }
+          .to raise_error(TurtleApp::TurtleNotPlaced, 'Turtle not placed')
+      end
     end
   end
 

@@ -1,4 +1,5 @@
 require 'ostruct'
+require_relative 'table_errors'
 
 module TurtleApp
   class Table
@@ -12,6 +13,9 @@ module TurtleApp
     end
 
     def place_turtle(x, y, direction)
+      raise IncorrectPlace if x == -1 || y == -1 || x == fields.size || y == fields.size
+      raise IncorrectDirection unless DIRECTIONS.include?(direction)
+
       clear_table
 
       fields[y][x] = 'T'
@@ -21,6 +25,8 @@ module TurtleApp
     end
 
     def move_turtle
+      verify_turtle_is_placed
+
       case turtle.direction
       when 'SOUTH' then
         new_y = turtle.y - 1
@@ -40,14 +46,20 @@ module TurtleApp
     end
 
     def rotate_turtle_left
+      verify_turtle_is_placed
+
       turtle.direction = next_direction(DIRECTIONS.reverse, turtle.direction)
     end
 
     def rotate_turtle_right
+      verify_turtle_is_placed
+
       turtle.direction = next_direction(DIRECTIONS, turtle.direction)
     end
 
     def report
+      verify_turtle_is_placed
+
       {
         x: turtle.x,
         y: turtle.y,
@@ -75,6 +87,10 @@ module TurtleApp
       end
 
       new_direction
+    end
+
+    def verify_turtle_is_placed
+      raise TurtleNotPlaced unless turtle.x && turtle.y
     end
   end
 end
