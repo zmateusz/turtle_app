@@ -35,19 +35,19 @@ RSpec.describe TurtleApp::Table do
     context 'when turtle is placed two times' do
       it 'is placed on the latest given field' do
         subject.place(4, 4, 'SOUTH')
-        subject.place(0, 0, 'NORTH')
+        subject.place(0, 4, 'NORTH')
 
         expect(subject.fields).to eq(
           [
-            ['T', nil, nil, nil, nil],
             [nil, nil, nil, nil, nil],
             [nil, nil, nil, nil, nil],
             [nil, nil, nil, nil, nil],
-            [nil, nil, nil, nil, nil]
+            [nil, nil, nil, nil, nil],
+            ['T', nil, nil, nil, nil]
           ]
         )
 
-        expect(subject.turtle).to have_attributes(x: 0, y: 0, direction: 'NORTH')
+        expect(subject.turtle).to have_attributes(x: 0, y: 4, direction: 'NORTH')
       end
     end
   end

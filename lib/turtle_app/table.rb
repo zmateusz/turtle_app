@@ -14,7 +14,7 @@ module TurtleApp
     def place(x, y, direction)
       clear_table
 
-      fields[x][y] = 'T'
+      fields[y][x] = 'T'
       turtle.x = x
       turtle.y = y
       turtle.direction = direction
@@ -39,7 +39,7 @@ module TurtleApp
     private
 
     def clear_table
-      fields[turtle.x][turtle.y] = nil if turtle.x && turtle.y
+      fields[turtle.y][turtle.x] = nil if turtle.x && turtle.y
     end
 
     def next_direction(directions, current_direction)
